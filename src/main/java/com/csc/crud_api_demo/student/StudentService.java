@@ -34,11 +34,35 @@ public class StudentService {
   /**
    * Method to get a student by ID
    *
-   * @param id The ID of the student to retrieve
+   * @param studentId The ID of the student to retrieve
    * @return The student with the specified ID
    */
-  public Student getStudentById(@PathVariable long id) {
-    return studentDatabase.get(id);
+  public Student getStudentById(@PathVariable long studentId) {
+    return studentDatabase.get(studentId);
+  }
+
+  /**
+   * Method to get students by name
+   *
+   * @param name The name of the student to search for
+   * @return List of students with the specified name
+   */
+  public Object getStudentsByName(String name) {
+    return studentDatabase.values().stream()
+        .filter(student -> student.getName().toLowerCase().contains(name.toLowerCase()))
+        .toList();
+  }
+
+  /**
+   * Method to get students by major
+   *
+   * @param major The major to search for
+   * @return List of students with the specified major
+   */
+  public Object getStudentsByMajor(String major) {
+    return studentDatabase.values().stream()
+        .filter(student -> student.getMajor().toLowerCase().contains(major.toLowerCase()))
+        .toList();
   }
 
   /**
@@ -47,28 +71,28 @@ public class StudentService {
    * @param student The student to add
    */
   public void addStudent(Student student) {
-    studentDatabase.put(student.getId(), student);
+    studentDatabase.put(student.getStudentId(), student);
   }
 
   /**
    * Method to update a student
    *
-   * @param id      The ID of the student to update
+   * @param studentId      The ID of the student to update
    * @param student The updated student information
    */
-  public void updateStudent(Long id, Student student) {
-    if (studentDatabase.containsKey(id)) {
-      studentDatabase.put(id, student);
+  public void updateStudent(Long studentId, Student student) {
+    if (studentDatabase.containsKey(studentId)) {
+      studentDatabase.put(studentId, student);
     }
   }
 
   /**
    * Method to delete a student
    *
-   * @param id The ID of the student to delete
+   * @param studentId The ID of the student to delete
    */
-  public void deleteStudent(Long id) {
-    studentDatabase.remove(id);
+  public void deleteStudent(Long studentId) {
+    studentDatabase.remove(studentId);
   }
 
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -39,6 +40,28 @@ public class StudentController {
   @GetMapping("/students/{id}")
   public Student getStudentById(@PathVariable long id) {
     return studentService.getStudentById(id);
+  }
+
+  /**
+   * Endpoint to get students by name
+   *
+   * @param name The name of the student to search for
+   * @return List of students with the specified name
+   */
+  @GetMapping("/students/name")
+  public Object getStudentsByName(@RequestParam String key) {
+    return studentService.getStudentsByName(key);
+  }
+
+  /**
+   * Endpoint to get students by major
+   *
+   * @param major The major to search for
+   * @return List of students with the specified major
+   */
+  @GetMapping("/students/major/{major}")
+  public Object getStudentsByMajor(@PathVariable String major) {
+    return studentService.getStudentsByMajor(major);
   }
 
   /**
